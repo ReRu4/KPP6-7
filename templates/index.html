@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Классификатор геометрических фигур</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Классификатор геометрических фигур</h1>
+        <p>Загрузите изображение с кругом, треугольником или квадратом.</p>
+
+        <form id="uploadForm" enctype="multipart/form-data">
+            <input type="file" id="fileInput" name="file" accept="image/*" required>
+            <button type="submit">Классифицировать</button>
+        </form>
+
+        <div id="result" class="result hidden"></div>
+
+        <a href="/history" class="btn btn-secondary">
+            История классификаций
+        </a>
+    </div>
+
+    <script src="/static/js/main.js"></script>
+</body>
+</html>

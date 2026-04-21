@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>История предсказаний</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container-wide">
+        <h1>История предсказаний</h1>
+        <a href="/" class="back-link">← На главную</a>
+
+        {% if predictions %}
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Изображение</th>
+                    <th>Фигура</th>
+                    <th>Уверенность</th>
+                    <th>Вероятность круга</th>
+                    <th>Вероятность квадрата</th>
+                    <th>Вероятность треугольника</th>
+                    <th>Имя файла</th>
+                    <th>Дата создания</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for prediction in predictions %}
+                <tr>
+                    <td>{{ prediction.id }}</td>
+                    <td>
+                        <img src="{{ url_for('get_image', prediction_id=prediction.id) }}"
+                             alt="Image"
+                             style="max-width: 100px; max-height: 100px;">
+                    </td>
+                    <td>
+                        {% if prediction.predicted_class == 'circle' %}Круг
+                        {% elif prediction.predicted_class == 'square' %}Квадрат
+                        {% else %}Треугольник{% endif %}
+                    </td>
+                    <td>{{ "%.1f"|format(prediction.confidence * 100) }}%</td>
+                    <td>{{ "%.1f"|format(prediction.probabilities_circle * 100) }}%</td>
+                    <td>{{ "%.1f"|format(prediction.probabilities_square * 100) }}%</td>
+                    <td>{{ "%.1f"|format(prediction.probabilities_triangle * 100) }}%</td>
+                    <td>{{ prediction.filename }}</td>
+                    <td>{{ prediction.created_at.strftime('%d.%m.%Y %H:%M:%S') if prediction.created_at }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p class="empty-msg">Пока нет предсказаний. Загрузите изображение на главной странице.</p>
+        {% endif %}
+    </div>
+</body>
+</html>
