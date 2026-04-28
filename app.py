@@ -12,6 +12,7 @@ from model import nn
 
 app = Flask(__name__)
 
+print("Гит подключен")
 # Инициализируем базу данных
 init_db()
 
